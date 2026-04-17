@@ -1,0 +1,27 @@
+proxies:
+  - name: "洛杉矶"
+    type: vless
+    server: 46.38.157.54
+    port: 35359
+    uuid: 1112d878-331f-4ad5-9e3a-8fe13b146245
+    flow: xtls-rprx-vision
+    tls: true
+    udp: true
+    network: tcp
+    reality-opts:
+      public-key: F3FR8MtAZwA0sr5IHI3uaamQIe61Om5S2v4RxPVqq1I
+      short-id: 858f98e04f2c281d
+    servername: www.sony.com
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: "节点选择"
+    type: select
+    proxies:
+      - 洛杉矶
+      - DIRECT
+
+rules:
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,节点选择
