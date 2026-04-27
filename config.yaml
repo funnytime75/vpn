@@ -1,5 +1,5 @@
 proxies:
-  - name: "洛杉矶"
+  - name: "洛杉矶-VLESS"
     type: vless
     server: 46.38.157.54
     port: 35359
@@ -14,12 +14,30 @@ proxies:
     servername: www.sony.com
     client-fingerprint: chrome
 
+  - name: "洛杉矶-HY2"
+    type: hysteria2
+    server: vpn.funnytime75.com
+    port: 8443
+    password: "595775Xu!"
+    sni: vpn.funnytime75.com
+    skip-cert-verify: false
+
 proxy-groups:
   - name: "节点选择"
     type: select
     proxies:
-      - 洛杉矶
+      - 自动选择
+      - 洛杉矶-VLESS
+      - 洛杉矶-HY2
       - DIRECT
+
+  - name: "自动选择"
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    proxies:
+      - 洛杉矶-VLESS
+      - 洛杉矶-HY2
 
 rules:
   - DOMAIN-SUFFIX,cn,DIRECT
